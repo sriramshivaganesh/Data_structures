@@ -1,0 +1,45 @@
+class crop_details: 
+     def bargraph(self):
+         import xlrd
+         loc = (r"C:\Users\shiva\Downloads")
+         wb = xlrd.open_workbook(loc)
+         sheet = wb.sheet_by_index(0)
+         sheet.cell_value(0, 0)
+         import matplotlib.pyplot as plt
+         x=list()
+         y=list() 
+         for i in range(2,sheet.nrows) :
+             if sheet.cell_value(i,4)==self:
+                 x.append(sheet.cell_value(i,2))
+                 y.append(sheet.cell_value(i,6))
+         plt.bar(x, y) 
+         plt.xlabel('Year') 
+         plt.ylabel('Production') 
+         plt.title('Crop Production')  
+         plt.show() 
+     def yeardetails(self):
+         f=open(r"C:\Users\shiva\Downloads","w")
+         import xlrd
+         loc = (r"C:\Users\shiva\Downloads")
+         wb = xlrd.open_workbook(loc)
+         sheet = wb.sheet_by_index(0)
+         sheet.cell_value(0, 0)
+         #f.write(str(sheet.row_value(0,0)))
+         # f.write('\n')
+         # f.write(str(sheet.row_values(1,0)))
+         # f.write('\n')
+         for i in range(sheet.nrows): 
+             if sheet.cell_value(i,2)==self:
+                 f.write(str(sheet.row_values(i,0)))
+                 f.write('\n')
+
+graph = input('Do you want to view graph, tell Yes or No\n')
+while graph=='yes':
+      crop=input('enter the crop name\n')
+      crop_details.bargraph(crop)
+      graph=input('Again you want to view the graph yes or no\n')
+year=input('Do you want to see the details in a particular year, tell Yes or No\n')
+while year=='yes':
+      year=int(input('enter the year\n'))
+      crop_details.yeardetails(year)
+      year=input('Again you want to view the yeardetails yes or no\n')
